@@ -23,13 +23,14 @@ class Contador(threading.Thread):
         # y esperamos un segundo. Esto sin afectar al proceso de la ventana, ya que corren en momentos
         # distintos
         while not self.evento.is_set():
-            self.etiqueta.setText("Han transcurrido " + str(self.contador) + " segundo(s)")
-            self.contador += 1
-            self.evento.wait(1)
+            self.etiqueta.setText("Han transcurrido " + str(round(self.contador, 2)) +  " segundos")
+            self.contador += 0.1
+            self.evento.wait(0.1)
 
     def detener_contador(self):
         # No hacen falta comentarios
         self.evento.set()
+        self.etiqueta.setText("Detenido después de " + str(round(self.contador, 2)) + " segundos")
 
 
 class Aplicacion():
@@ -118,7 +119,7 @@ class Aplicacion():
         self.win.setLayout(self.vbox)
 
         # Ponemos un título
-        self.win.setWindowTitle("Simular ejecución de procesos")
+        self.win.setWindowTitle("Creado por Paco y Luis para sistemas operativos")
 
         # Mostramos la ventana
         self.win.show()
